@@ -1,8 +1,16 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { Routes, RouterModule } from 'nest-router'
 import { Todo } from './entities/todo.entity'
-import { TodosModule } from './todos/todos.module';
+import { TodosModule } from './todos/todos.module'
+
+const routes: Routes = [
+  {
+    path: 'api',
+    children: [{ path: 'todos', module: TodosModule }],
+  },
+]
 
 @Module({
   imports: [
@@ -20,6 +28,7 @@ import { TodosModule } from './todos/todos.module';
       entities: [Todo],
       synchronize: true,
     }),
+    RouterModule.forRoutes(routes),
     TodosModule,
   ],
   controllers: [],
