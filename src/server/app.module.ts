@@ -3,6 +3,8 @@ import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { Routes, RouterModule } from 'nest-router'
 import { Todo } from './entities/todo.entity'
+
+import { ViewModule } from './view/view.module'
 import { TodosModule } from './todos/todos.module'
 
 const routes: Routes = [
@@ -29,7 +31,11 @@ const routes: Routes = [
       synchronize: true,
     }),
     RouterModule.forRoutes(routes),
+    // api
     TodosModule,
+
+    // nextjs
+    ViewModule,
   ],
   controllers: [],
   providers: [],

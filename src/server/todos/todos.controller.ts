@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common'
 import { TodosService } from './todos.service'
-import { Todo } from 'src/entities/todo.entity'
+import { Todo } from '../entities/todo.entity'
 
 @Controller()
 export class TodosController {
