@@ -29,6 +29,7 @@ const routes: Routes = [
       database: process.env.DATABASE,
       entities: [Todo],
       synchronize: true,
+      timezone: 'Asia/Tokyo',
     }),
     RouterModule.forRoutes(routes),
     // api
