@@ -10,4 +10,10 @@ export class Todo {
 
   @Column()
   body: string
+
+  @Column()
+  dt_start: Date
+
+  @Column()
+  dt_end: Date
 }
