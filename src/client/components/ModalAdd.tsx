@@ -14,9 +14,11 @@ const ModalAdd = (props: { switchModal: () => void }) => {
     dt_end: new Date(),
   })
 
+  // 戻る
   const handleBack = () => {
     props.switchModal()
   }
+  // 追加
   const handleAdd = async () => {
     try {
       await apiService.createTodo(todo)
@@ -25,6 +27,7 @@ const ModalAdd = (props: { switchModal: () => void }) => {
       console.log(e)
     }
   }
+  // 日付フォーマット
   const formatDate = (d: Date) => {
     return [d.getFullYear(), ('0' + (d.getMonth() + 1)).slice(-2), ('0' + d.getDate()).slice(-2)].join('-')
   }

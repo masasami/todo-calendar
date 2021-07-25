@@ -8,9 +8,11 @@ const ModalEdit = (props: { todo: TodoInterface; closeModalEdit: () => void }) =
   const apiService = new ApiService()
   const [todo, setTodo] = useState(props.todo)
 
+  // 戻る
   const handleBack = () => {
     props.closeModalEdit()
   }
+  // やることの更新
   const handleEdit = async () => {
     try {
       const res = await apiService.updateTodo(todo.id, {
@@ -26,6 +28,7 @@ const ModalEdit = (props: { todo: TodoInterface; closeModalEdit: () => void }) =
       console.log(e)
     }
   }
+  // 日付フォーマット
   const formatDate = (d: Date) => {
     return [d.getFullYear(), ('0' + (d.getMonth() + 1)).slice(-2), ('0' + d.getDate()).slice(-2)].join('-')
   }

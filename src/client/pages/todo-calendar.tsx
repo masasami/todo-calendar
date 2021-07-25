@@ -26,10 +26,11 @@ const TodoCalendar = () => {
     })()
   }, [])
 
-  // やることの編集
+  // やることの編集モーダルを開く
   const openModalEdit = (todo: TodoInterface) => {
     setTodo(todo)
   }
+  // やることの編集モーダルを閉じる
   const closeModalEdit = () => {
     setTodo(null)
   }
@@ -119,6 +120,7 @@ const TodoCalendar = () => {
         }}
       />
 
+      {/* 編集モーダル */}
       {todo && <ModalEdit todo={todo} closeModalEdit={closeModalEdit} />}
     </div>
   )
