@@ -4,8 +4,8 @@ body {
   height: 100vh;
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
-    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+    Helvetica Neue, sans-serif;
 }
 
 a {
@@ -15,4 +15,78 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+// react-big-calendarのスタイル
+.rbc-btn-group {
+  margin: 0 15px;
+  button {
+    font-size: 0;
+    cursor: pointer;
+  }
+}
+.rbc-btn-group:nth-child(1) {
+  button:nth-child(1)::before {
+    font-size: 14px;
+    content: '今日';
+  }
+  button:nth-child(2)::before {
+    font-size: 18px;
+    content: '←';
+  }
+  button:nth-child(3)::before {
+    font-size: 18px;
+    content: '→';
+  }
+}
+
+.rbc-btn-group:nth-child(3) {
+  button:nth-child(1)::before {
+    font-size: 14px;
+    content: '月';
+  }
+  button:nth-child(2)::before {
+    font-size: 14px;
+    content: '週';
+  }
+  button:nth-child(3)::before {
+    font-size: 14px;
+    content: '日';
+  }
+  button:nth-child(4)::before {
+    font-size: 14px;
+    content: 'スケジュール';
+  }
+}
+
+.rbc-header {
+  font-size: 0 !important;
+  &:nth-child(1)::before {
+    font-size: 18px;
+    content: '日';
+  }
+  &:nth-child(2)::before {
+    font-size: 18px;
+    content: '月';
+  }
+  &:nth-child(3)::before {
+    font-size: 18px;
+    content: '火';
+  }
+  &:nth-child(4)::before {
+    font-size: 18px;
+    content: '水';
+  }
+  &:nth-child(5)::before {
+    font-size: 18px;
+    content: '木';
+  }
+  &:nth-child(6)::before {
+    font-size: 18px;
+    content: '金';
+  }
+  &:nth-child(7)::before {
+    font-size: 18px;
+    content: '土';
+  }
 }

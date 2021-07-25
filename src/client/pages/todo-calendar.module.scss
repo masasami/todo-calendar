@@ -1,4 +1,26 @@
 .container {
   width: 100vw;
   height: 100vh;
+
+  .calendar {
+    padding-top: 10px;
+    height: calc(100% - 80px);
+
+    .todo {
+      display: flex;
+      align-items: center;
+      background-color: #61dafb;
+      .completed {
+        text-decoration: line-through;
+      }
+      .btnDelete {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ff0000;
+        background-color: transparent;
+        border: none;
+        margin-left: auto;
+      }
+    }
+  }
 }
