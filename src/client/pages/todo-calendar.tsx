@@ -79,13 +79,28 @@ const TodoCalendar = () => {
                   type="checkbox"
                   checked={todo.completed}
                   onClick={(e) => e.stopPropagation()}
-                  onChange={(e) => {
+                  onChange={async (e) => {
+                    const completed = e.target.checked
                     setTodos((prevTodos) =>
                       prevTodos.map((prevTodo) => {
-                        if (prevTodo.id === todo.id) prevTodo.completed = e.target.checked
+                        if (prevTodo.id === todo.id) {
+                          prevTodo.completed = completed
+                        }
                         return prevTodo
                       })
                     )
+                    try {
+                      const res = await apiService.updateTodo(todo.id, {
+                        title: todo.title,
+                        body: todo.body,
+                        completed,
+                        dt_start: todo.dt_start,
+                        dt_end: todo.dt_end,
+                      })
+                      console.log(res)
+                    } catch (e) {
+                      console.log(e)
+                    }
                   }}
                 />
                 <span className={todo.completed ? styles.completed : null}>{todo.title}</span>
