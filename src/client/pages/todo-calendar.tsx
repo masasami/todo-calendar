@@ -6,11 +6,13 @@ import moment from 'moment'
 import { ApiService } from '../lib/api.service'
 import { TodoInterface } from '../../interfaces/todo'
 import Header from '../components/Header'
+import ModalEdit from '../components/ModalEdit'
 import styles from './todo-calendar.module.scss'
 
 const TodoCalendar = () => {
   const apiService = new ApiService()
   const [todos, setTodos] = useState<TodoInterface[]>([])
+  const [todo, setTodo] = useState<TodoInterface>(null)
 
   useEffect(() => {
     ;(async () => {
@@ -25,9 +27,11 @@ const TodoCalendar = () => {
   }, [])
 
   // やることの編集
-  const editTodo = (todo: TodoInterface) => {
-    console.log('editTodo')
-    console.log(todo)
+  const openModalEdit = (todo: TodoInterface) => {
+    setTodo(todo)
+  }
+  const closeModalEdit = () => {
+    setTodo(null)
   }
   // やることの削除
   const deleteTodo = async (todo: TodoInterface) => {
@@ -70,7 +74,7 @@ const TodoCalendar = () => {
           event: (e) => {
             const todo: TodoInterface = e.event
             return (
-              <div className={styles.todo} onClick={() => editTodo(todo)}>
+              <div className={styles.todo} onClick={() => openModalEdit(todo)}>
                 <input
                   type="checkbox"
                   checked={todo.completed}
@@ -99,6 +103,8 @@ const TodoCalendar = () => {
           },
         }}
       />
+
+      {todo && <ModalEdit todo={todo} closeModalEdit={closeModalEdit} />}
     </div>
   )
 }
