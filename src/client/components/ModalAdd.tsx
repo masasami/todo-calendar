@@ -4,7 +4,7 @@ import { ApiService } from '../lib/api.service'
 import { CreateTodoDto } from '../../interfaces/todo'
 import styles from './ModalAdd.module.scss'
 
-const ModalAdd = ({ switchModal }) => {
+const ModalAdd = (props: { switchModal: () => void }) => {
   const apiService = new ApiService()
   const [todo, setTodo] = useState<CreateTodoDto>({
     title: '',
@@ -15,12 +15,12 @@ const ModalAdd = ({ switchModal }) => {
   })
 
   const handleBack = () => {
-    switchModal()
+    props.switchModal()
   }
   const handleAdd = async () => {
     try {
       await apiService.createTodo(todo)
-      switchModal()
+      props.switchModal()
     } catch (e) {
       console.log(e)
     }
@@ -28,10 +28,14 @@ const ModalAdd = ({ switchModal }) => {
   const formatDate = (d: Date) => {
     return [d.getFullYear(), ('0' + (d.getMonth() + 1)).slice(-2), ('0' + d.getDate()).slice(-2)].join('-')
   }
+
   return (
     <div className={styles.container}>
       <div className={styles.modalBody}>
+        {/* ヘッダー */}
         <header className={styles.header}>やることの追加</header>
+
+        {/* メイン */}
         <main className={styles.main}>
           <section>
             <p>行う日</p>
@@ -58,6 +62,8 @@ const ModalAdd = ({ switchModal }) => {
             ></textarea>
           </section>
         </main>
+
+        {/* フッター */}
         <footer className={styles.footer}>
           <button className={styles.btnBack} onClick={handleBack}>
             戻る
