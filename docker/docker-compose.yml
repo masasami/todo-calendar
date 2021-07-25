@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: db:mysql
+    container_name: mysql
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    ports:
+      - 3306:3306
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      TZ: Asia/Tokyo
+
+    tty: true
+    privileged: true
+    restart: always
