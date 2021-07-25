@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { DeleteResult } from 'typeorm'
 import { TodoInterface, CreateTodoDto } from '../../interfaces/todo'
 
 export class ApiService {
@@ -10,5 +11,9 @@ export class ApiService {
 
   async createTodo(todo: CreateTodoDto): Promise<TodoInterface> {
     return (await axios.post<TodoInterface>(`${this.apiUrl}/todos`, todo)).data
+  }
+
+  async deleteTodo(id: number): Promise<DeleteResult> {
+    return (await axios.delete<DeleteResult>(`${this.apiUrl}/todos/${id}`)).data
   }
 }

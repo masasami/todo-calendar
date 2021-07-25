@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Calendar, momentLocalizer, DateLocalizer, DateLocalizerSpec } from 'react-big-calendar'
+import { Calendar, momentLocalizer } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import moment from 'moment'
 
@@ -30,16 +30,21 @@ const TodoCalendar = () => {
     console.log(todo)
   }
   // やることの削除
-  const deleteTodo = (todo: TodoInterface) => {
-    console.log('deleteTodo')
-    console.log(todo)
+  const deleteTodo = async (todo: TodoInterface) => {
+    try {
+      const res = await apiService.deleteTodo(todo.id)
+      console.log(res)
+      setTodos((prevTodos) => prevTodos.filter((prevTodo) => prevTodo.id !== todo.id))
+    } catch (e) {
+      console.log(e)
+    }
   }
-  const localizer = momentLocalizer(moment)
+
   return (
     <div className={styles.container}>
       <Header />
       <Calendar
-        localizer={localizer}
+        localizer={momentLocalizer(moment)}
         events={todos.map((todo) => {
           return {
             ...todo,
