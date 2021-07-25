@@ -1,0 +1,75 @@
+import { useState } from 'react'
+
+import { ApiService } from '../lib/api.service'
+import { CreateTodoDto } from '../../interfaces/todo'
+import styles from './ModalAdd.module.scss'
+
+const ModalAdd = ({ switchModal }) => {
+  const apiService = new ApiService()
+  const [todo, setTodo] = useState<CreateTodoDto>({
+    title: '',
+    body: '',
+    completed: false,
+    dt_start: new Date(),
+    dt_end: new Date(),
+  })
+
+  const handleBack = () => {
+    switchModal()
+  }
+  const handleAdd = async () => {
+    try {
+      await apiService.createTodo(todo)
+      switchModal()
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  const formatDate = (d: Date) => {
+    console.log('formatDate')
+    return [d.getFullYear(), ('0' + (d.getMonth() + 1)).slice(-2), ('0' + d.getDate()).slice(-2)].join('-')
+  }
+  return (
+    <div className={styles.container}>
+      <div className={styles.modalBody}>
+        <header className={styles.header}>やることの追加</header>
+        <main className={styles.main}>
+          <section>
+            <p>行う日</p>
+            <input
+              type="date"
+              value={formatDate(todo.dt_start)}
+              onChange={(e) => {
+                setTodo({ ...todo, dt_start: new Date(e.target.value), dt_end: new Date(e.target.value) })
+              }}
+            />
+          </section>
+
+          <section>
+            <p>タイトル</p>
+            <input type="text" value={todo.title} onChange={(e) => setTodo({ ...todo, title: e.target.value })} />
+          </section>
+
+          <section>
+            <p>内容</p>
+            <textarea
+              rows={10}
+              value={todo.body}
+              onChange={(e) => setTodo({ ...todo, body: e.target.value })}
+            ></textarea>
+          </section>
+        </main>
+        <footer className={styles.footer}>
+          <button className={styles.btnBack} onClick={handleBack}>
+            戻る
+          </button>
+          <button className={styles.btnAdd} onClick={handleAdd}>
+            追加
+          </button>
+        </footer>
+      </div>
+    </div>
+  )
+}
+
+export default ModalAdd
