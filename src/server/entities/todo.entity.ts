@@ -12,6 +12,9 @@ export class Todo {
   body: string
 
   @Column()
+  completed: boolean
+
+  @Column()
   dt_start: Date
 
   @Column()
