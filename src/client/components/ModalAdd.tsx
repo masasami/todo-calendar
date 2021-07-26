@@ -4,6 +4,9 @@ import { ApiService } from '../lib/api.service'
 import { CreateTodoDto } from '../../interfaces/todo'
 import styles from './ModalAdd.module.scss'
 
+import { useAppDispatch } from '../redux/hooks'
+import { addTodoReducer } from '../redux/slice'
+
 const ModalAdd = (props: { switchModal: () => void }) => {
   const apiService = new ApiService()
   const [todo, setTodo] = useState<CreateTodoDto>({
@@ -13,6 +16,7 @@ const ModalAdd = (props: { switchModal: () => void }) => {
     dt_start: new Date(),
     dt_end: new Date(),
   })
+  const dispatch = useAppDispatch()
 
   // 戻る
   const handleBack = () => {
@@ -21,7 +25,8 @@ const ModalAdd = (props: { switchModal: () => void }) => {
   // 追加
   const handleAdd = async () => {
     try {
-      await apiService.createTodo(todo)
+      const addedTodo = await apiService.createTodo(todo)
+      dispatch(addTodoReducer(addedTodo))
       props.switchModal()
     } catch (e) {
       console.log(e)

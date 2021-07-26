@@ -4,9 +4,13 @@ import { ApiService } from '../lib/api.service'
 import { TodoInterface } from '../../interfaces/todo'
 import styles from './ModalEdit.module.scss'
 
+import { useAppDispatch } from '../redux/hooks'
+import { updateTodoReducer } from '../redux/slice'
+
 const ModalEdit = (props: { todo: TodoInterface; closeModalEdit: () => void }) => {
   const apiService = new ApiService()
   const [todo, setTodo] = useState(props.todo)
+  const dispatch = useAppDispatch()
 
   // 戻る
   const handleBack = () => {
@@ -23,6 +27,7 @@ const ModalEdit = (props: { todo: TodoInterface; closeModalEdit: () => void }) =
         dt_end: todo.dt_end,
       })
       console.log(res)
+      dispatch(updateTodoReducer(todo))
       props.closeModalEdit()
     } catch (e) {
       console.log(e)

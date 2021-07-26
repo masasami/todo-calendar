@@ -13,7 +13,7 @@ import ModalEdit from '../components/ModalEdit'
 import styles from './todo-calendar.module.scss'
 // Redux
 import { useAppSelector, useAppDispatch } from '../redux/hooks'
-import { setTodosReducer } from '../redux/slice'
+import { setTodosReducer, updateTodoReducer } from '../redux/slice'
 
 const TodoCalendar = () => {
   const apiService = new ApiService()
@@ -51,7 +51,7 @@ const TodoCalendar = () => {
     try {
       const res = await apiService.deleteTodo(todo.id)
       console.log(res)
-      setTodos((prevTodos) => prevTodos.filter((prevTodo) => prevTodo.id !== todo.id))
+      dispatch(setTodosReducer(todos.filter((prevTodo) => prevTodo.id !== todo.id)))
     } catch (e) {
       console.log(e)
     }
@@ -94,15 +94,6 @@ const TodoCalendar = () => {
                   onClick={(e) => e.stopPropagation()}
                   onChange={async (e) => {
                     const completed = e.target.checked
-                    setTodos((prevTodos) =>
-                      prevTodos.map((prevTodo) => {
-                        const newTodo = { ...prevTodo }
-                        if (newTodo.id === todo.id) {
-                          newTodo.completed = completed
-                        }
-                        return newTodo
-                      })
-                    )
                     try {
                       const res = await apiService.updateTodo(todo.id, {
                         title: todo.title,
@@ -112,6 +103,7 @@ const TodoCalendar = () => {
                         dt_end: todo.dt_end,
                       })
                       console.log(res)
+                      dispatch(updateTodoReducer({ ...todo, completed }))
                     } catch (e) {
                       console.log(e)
                     }
