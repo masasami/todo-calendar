@@ -44,3 +44,9 @@ $ npm run build
 # ビルド成果物の実行
 $ npm run start:prod
 ```
+
+# Redux の導入手順
+
+```bash
+$ npm install @reduxjs/toolkit react-redux
+```

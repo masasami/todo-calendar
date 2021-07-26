@@ -1,30 +1,42 @@
+// ライブラリ
 import { useState, useEffect } from 'react'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import moment from 'moment'
-
+// lib
 import { ApiService } from '../lib/api.service'
 import { TodoInterface } from '../../interfaces/todo'
+// 自作コンポーネント
 import Header from '../components/Header'
 import ModalEdit from '../components/ModalEdit'
+// スタイル
 import styles from './todo-calendar.module.scss'
+// Redux
+import { useAppSelector, useAppDispatch } from '../redux/hooks'
+import { setTodosReducer } from '../redux/slice'
 
 const TodoCalendar = () => {
   const apiService = new ApiService()
   const [todos, setTodos] = useState<TodoInterface[]>([])
   const [todo, setTodo] = useState<TodoInterface>(null)
 
+  const stateTodos = useAppSelector((state) => state.todosReducer.todos)
+  const dispatch = useAppDispatch()
+
   useEffect(() => {
     ;(async () => {
       try {
         const todos = await apiService.getTodos()
-        console.log(todos)
-        setTodos(todos)
+        dispatch(setTodosReducer(todos))
       } catch (e) {
         console.log(e)
       }
     })()
   }, [])
+
+  useEffect(() => {
+    setTodos(stateTodos)
+  }, [stateTodos])
 
   // やることの編集モーダルを開く
   const openModalEdit = (todo: TodoInterface) => {
@@ -84,10 +96,11 @@ const TodoCalendar = () => {
                     const completed = e.target.checked
                     setTodos((prevTodos) =>
                       prevTodos.map((prevTodo) => {
-                        if (prevTodo.id === todo.id) {
-                          prevTodo.completed = completed
+                        const newTodo = { ...prevTodo }
+                        if (newTodo.id === todo.id) {
+                          newTodo.completed = completed
                         }
-                        return prevTodo
+                        return newTodo
                       })
                     )
                     try {
