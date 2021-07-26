@@ -1,12 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { TodoInterface } from '../../interfaces/todo'
 
-interface State {
-  todos: TodoInterface[]
-}
-const initialState: State = {
-  todos: [],
-}
+const initialState: { todos: TodoInterface[] } = { todos: [] }
 
 export const todosSlice = createSlice({
   name: 'todosSlice',
