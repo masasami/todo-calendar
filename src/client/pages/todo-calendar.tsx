@@ -8,6 +8,7 @@ import { ApiService } from '../lib/api.service'
 import { TodoInterface } from '../../interfaces/todo'
 // 自作コンポーネント
 import Header from '../components/Header'
+import ModalAdd from '../components/ModalAdd'
 import ModalEdit from '../components/ModalEdit'
 // スタイル
 import styles from './todo-calendar.module.scss'
@@ -19,6 +20,7 @@ const TodoCalendar = () => {
   const apiService = new ApiService()
   const [todos, setTodos] = useState<TodoInterface[]>([])
   const [todo, setTodo] = useState<TodoInterface>(null)
+  const [date, setDate] = useState(null)
 
   const stateTodos = useAppSelector((state) => state.todosReducer.todos)
   const dispatch = useAppDispatch()
@@ -38,14 +40,6 @@ const TodoCalendar = () => {
     setTodos(stateTodos)
   }, [stateTodos])
 
-  // やることの編集モーダルを開く
-  const openModalEdit = (todo: TodoInterface) => {
-    setTodo(todo)
-  }
-  // やることの編集モーダルを閉じる
-  const closeModalEdit = () => {
-    setTodo(null)
-  }
   // やることの削除
   const deleteTodo = async (todo: TodoInterface) => {
     try {
@@ -61,6 +55,12 @@ const TodoCalendar = () => {
     <div className={styles.container}>
       <Header />
       <Calendar
+        // やることの追加モーダルを開く
+        selectable
+        onSelectSlot={(e) => {
+          setDate(e.start)
+        }}
+        // ローカライザー
         localizer={momentLocalizer(moment)}
         events={todos.map((todo) => {
           return {
@@ -87,7 +87,11 @@ const TodoCalendar = () => {
           event: (e) => {
             const todo: TodoInterface = e.event
             return (
-              <div className={styles.todo} onClick={() => openModalEdit(todo)}>
+              <div
+                className={styles.todo}
+                // やることの編集モーダルを開く
+                onClick={() => setTodo(todo)}
+              >
                 <input
                   type="checkbox"
                   checked={todo.completed}
@@ -110,6 +114,7 @@ const TodoCalendar = () => {
                   }}
                 />
                 <span className={todo.completed ? styles.completed : null}>{todo.title}</span>
+                {/* やることの削除ボタン */}
                 <button
                   className={styles.btnDelete}
                   onClick={(e) => {
@@ -125,8 +130,24 @@ const TodoCalendar = () => {
         }}
       />
 
+      {/* 追加モーダル */}
+      {date && (
+        <ModalAdd
+          date={date}
+          switchModal={() => {
+            setDate(null)
+          }}
+        />
+      )}
       {/* 編集モーダル */}
-      {todo && <ModalEdit todo={todo} closeModalEdit={closeModalEdit} />}
+      {todo && (
+        <ModalEdit
+          todo={todo}
+          closeModalEdit={() => {
+            setTodo(null)
+          }}
+        />
+      )}
     </div>
   )
 }

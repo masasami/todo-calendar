@@ -7,14 +7,14 @@ import styles from './ModalAdd.module.scss'
 import { useAppDispatch } from '../redux/hooks'
 import { addTodoReducer } from '../redux/slice'
 
-const ModalAdd = (props: { switchModal: () => void }) => {
+const ModalAdd = (props: { date: Date; switchModal: () => void }) => {
   const apiService = new ApiService()
   const [todo, setTodo] = useState<CreateTodoDto>({
     title: '',
     body: '',
     completed: false,
-    dt_start: new Date(),
-    dt_end: new Date(),
+    dt_start: props.date,
+    dt_end: props.date,
   })
   const dispatch = useAppDispatch()
 

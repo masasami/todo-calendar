@@ -16,7 +16,7 @@ const Header = () => {
           + 追加
         </button>
       </header>
-      {isOpen && <ModalAdd switchModal={switchModal} />}
+      {isOpen && <ModalAdd date={new Date()} switchModal={switchModal} />}
     </>
   )
 }
