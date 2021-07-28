@@ -26,6 +26,8 @@ a {
   }
 }
 .rbc-btn-group:nth-child(1) {
+  position: absolute;
+  left: 0;
   button:nth-child(1)::before {
     font-size: 14px;
     content: '今日';
@@ -40,23 +42,13 @@ a {
   }
 }
 
+.rbc-toolbar-label {
+  height: 45px;
+  line-height: 45px;
+}
+
 .rbc-btn-group:nth-child(3) {
-  button:nth-child(1)::before {
-    font-size: 14px;
-    content: '月';
-  }
-  button:nth-child(2)::before {
-    font-size: 14px;
-    content: '週';
-  }
-  button:nth-child(3)::before {
-    font-size: 14px;
-    content: '日';
-  }
-  button:nth-child(4)::before {
-    font-size: 14px;
-    content: 'スケジュール';
-  }
+  display: none;
 }
 
 .rbc-header {
