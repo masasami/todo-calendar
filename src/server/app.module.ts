@@ -17,8 +17,8 @@ const routes: Routes = [
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true,
-      // envFilePath: process.env.NODE_ENV !== 'production' ? '.env.development' : '.env.production',
+      //   isGlobal: true,
+      //   envFilePath: process.env.NODE_ENV !== 'production' ? '.env.development' : '.env.production',
     }),
     TypeOrmModule.forRoot({
       type: <any>process.env.DB_TYPE,
