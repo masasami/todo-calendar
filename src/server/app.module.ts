@@ -21,7 +21,7 @@ const routes: Routes = [
       envFilePath: process.env.NODE_ENV !== 'production' ? '.env.development' : '.env.production',
     }),
     TypeOrmModule.forRoot({
-      type: 'mysql',
+      type: <any>process.env.DB_TYPE,
       host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
       username: process.env.DB_USERNAME,
