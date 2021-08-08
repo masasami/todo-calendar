@@ -29,7 +29,7 @@ const routes: Routes = [
       database: process.env.DATABASE,
       entities: [Todo],
       synchronize: true,
-      ssl: true,
+      ssl: process.env.NODE_ENV !== 'production' ? false : { rejectUnauthorized: false },
     }),
     RouterModule.forRoutes(routes),
     // api
