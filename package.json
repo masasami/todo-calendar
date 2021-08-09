@@ -10,7 +10,7 @@
     "build": "nest build",
     "build:next": "next build src/client",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "next build src/client && nest build && NODE_ENV=production node dist/server/main",
+    "start": "NODE_ENV=production node dist/server/main",
     "start:dev": "nest start",
     "start:watch": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -21,7 +21,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "heroku-postbuild": "next build src/client && nest build && NODE_ENV=production node dist/server/main"
+    "heroku-postbuild": "npm install --only=dev --no-shrinkwrap && npm run build:next && npm run build"
   },
   "dependencies": {
     "@nestjs/common": "^7.5.1",
