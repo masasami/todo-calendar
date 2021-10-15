@@ -6,8 +6,8 @@ const Layout = ({ children }) => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>todo-app</title>
-        <meta name="description" content="todo-app" />
+        <title>todo-calendar</title>
+        <meta name="description" content="todo-calendar" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {children}
