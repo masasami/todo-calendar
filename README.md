@@ -2,11 +2,7 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
 
-<p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-</p>
-
-## 起動コマンド
+# 起動コマンド
 
 ```bash
 # 開発時
@@ -19,7 +15,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## テスト
+# テスト
 
 ```bash
 # unit tests
@@ -43,10 +39,4 @@ $ npm run build
 
 # ビルド成果物の実行
 $ npm run start:prod
-```
-
-# Redux の導入手順
-
-```bash
-$ npm install @reduxjs/toolkit react-redux
 ```
