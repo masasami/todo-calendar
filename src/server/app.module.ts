@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
+import { ScheduleModule } from '@nestjs/schedule'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { Routes, RouterModule } from 'nest-router'
 import { Todo } from './entities/todo.entity'
 
 import { ViewModule } from './view/view.module'
 import { TodosModule } from './todos/todos.module'
+import { TaskModule } from './task/task.module'
 
 const routes: Routes = [
   {
@@ -28,10 +30,14 @@ const routes: Routes = [
       ssl: process.env.NODE_ENV !== 'production' ? false : { rejectUnauthorized: false },
     }),
     RouterModule.forRoutes(routes),
+    ScheduleModule.forRoot(),
     // api
     TodosModule,
 
-    // nextjs
+    // cron
+    TaskModule,
+
+    // Next.js
     ViewModule,
   ],
   controllers: [],
